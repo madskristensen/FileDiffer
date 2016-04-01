@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -72,6 +74,15 @@ namespace FileDiffer
 
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1);
+
+            if (items.Count() == 1)
+            {
+                var dialog = new OpenFileDialog();
+                dialog.InitialDirectory = Path.GetDirectoryName(file1);
+                dialog.ShowDialog();
+
+                file2 = dialog.FileName;
+            }
 
             return !string.IsNullOrEmpty(file1) && !string.IsNullOrEmpty(file2);
         }
