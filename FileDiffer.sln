@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDiffer", "FileDiffer\FileDiffer.csproj", "{6E40BA85-E02C-49AE-BA45-E5DDFAF59730}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDiffer", "src\FileDiffer.csproj", "{6E40BA85-E02C-49AE-BA45-E5DDFAF59730}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E495E61-30E5-4399-9D0E-36388EA17151}"
 	ProjectSection(SolutionItems) = preProject
