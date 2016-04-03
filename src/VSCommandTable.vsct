@@ -4,17 +4,19 @@
     <Extern href="stdidcmd.h"/>
     <Extern href="vsshlids.h"/>
 
-    <Commands package="guidDiffFilesCommandPackage">
+    <Commands package="guidPackage">
         <Groups>
-            <Group guid="guidDiffFilesCommandPackageCmdSet" id="MyMenuGroup" priority="0x0300">
+            <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
         </Groups>
 
         <Buttons>
-            <Button guid="guidDiffFilesCommandPackageCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
-                <Parent guid="guidDiffFilesCommandPackageCmdSet" id="MyMenuGroup" />
+            <Button guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
+                <Parent guid="guidDiffFilesCmdSet" id="MyMenuGroup" />
                 <Icon guid="guidImages" id="bmpPic1" />
+                <CommandFlag>DefaultInvisible</CommandFlag>
+                <CommandFlag>DynamicVisibility</CommandFlag>
                 <Strings>
                     <ButtonText>Compare Files...</ButtonText>
                 </Strings>
@@ -27,15 +29,15 @@
     </Commands>
 
     <CommandPlacements>
-        <CommandPlacement guid="guidDiffFilesCommandPackageCmdSet" id="MyMenuGroup" priority="0x0200">
+        <CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
         </CommandPlacement>
     </CommandPlacements>
 
     <Symbols>
-        <GuidSymbol name="guidDiffFilesCommandPackage" value="{6e490dec-1b23-471e-8120-f164af6b268a}" />
+        <GuidSymbol name="guidPackage" value="{6e490dec-1b23-471e-8120-f164af6b268a}" />
 
-        <GuidSymbol name="guidDiffFilesCommandPackageCmdSet" value="{5034b97c-760a-45e5-a15d-d86dcfae06f7}">
+        <GuidSymbol name="guidDiffFilesCmdSet" value="{5034b97c-760a-45e5-a15d-d86dcfae06f7}">
             <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="DiffFilesCommandId" value="0x0100" />
         </GuidSymbol>

@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] More coming soon...
+- [x] Hide when more than 2 files are selected
 
 Features that have a checkmark are complete and available for
 download in the
@@ -16,6 +16,7 @@ on the official Visual Studio extension gallery.
 **2016-04-01**
 
 - [x] Compare any file on disk
+- [x] Support for Website Project
 
 ## 1.0
 

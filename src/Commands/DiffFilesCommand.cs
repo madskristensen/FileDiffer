@@ -1,55 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace FileDiffer
 {
     internal sealed class DiffFilesCommand
     {
-        public const int CommandId = 0x0100;
-
-        public static readonly Guid CommandSet = new Guid("5034b97c-760a-45e5-a15d-d86dcfae06f7");
-
-        private readonly Package package;
+        private readonly Package _package;
+        private readonly DTE2 _dte;
 
         private DiffFilesCommand(Package package)
         {
             if (package == null)
             {
-                throw new ArgumentNullException("package");
+                throw new ArgumentNullException(nameof(package));
             }
 
-            this.package = package;
+            _package = package;
+            _dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
-            {
-                var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
-                commandService.AddCommand(menuItem);
-            }
+            var commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
+
+            var id = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
+            var command = new OleMenuCommand(CommandCallback, id);
+            command.BeforeQueryStatus += BeforeQueryStatus;
+            commandService.AddCommand(command);
         }
 
-        public static DiffFilesCommand Instance
-        {
-            get;
-            private set;
-        }
+        public static DiffFilesCommand Instance { get; private set; }
 
         private IServiceProvider ServiceProvider
         {
-            get
-            {
-                return this.package;
-            }
+            get { return _package; }
         }
 
         public static void Initialize(Package package)
@@ -57,20 +45,28 @@ namespace FileDiffer
             Instance = new DiffFilesCommand(package);
         }
 
-        private void MenuItemCallback(object sender, EventArgs e)
+        private void BeforeQueryStatus(object sender, EventArgs e)
         {
-            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
+            var button = (OleMenuCommand)sender;
+            var selectedFiles = GetSelectedFiles();
+
+            // Only show if 1 or 2 files are selected
+            button.Visible = selectedFiles.Count() <= 2;
+        }
+
+        private void CommandCallback(object sender, EventArgs e)
+        {
             string file1, file2;
 
-            if (CanFilesBeCompared(dte, out file1, out file2))
+            if (CanFilesBeCompared(out file1, out file2))
             {
-                dte.ExecuteCommand("Tools.DiffFiles", $"\"{file1}\" \"{file2}\"");
+                _dte.ExecuteCommand("Tools.DiffFiles", $"\"{file1}\" \"{file2}\"");
             }
         }
 
-        private static bool CanFilesBeCompared(DTE2 dte, out string file1, out string file2)
+        private bool CanFilesBeCompared(out string file1, out string file2)
         {
-            var items = GetSelectedFiles(dte);
+            var items = GetSelectedFiles();
 
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1);
@@ -87,9 +83,9 @@ namespace FileDiffer
             return !string.IsNullOrEmpty(file1) && !string.IsNullOrEmpty(file2);
         }
 
-        public static IEnumerable<string> GetSelectedFiles(DTE2 dte)
+        public IEnumerable<string> GetSelectedFiles()
         {
-            var items = (Array)dte.ToolWindows.SolutionExplorer.SelectedItems;
+            var items = (Array)_dte.ToolWindows.SolutionExplorer.SelectedItems;
 
             return from item in items.Cast<UIHierarchyItem>()
                    let pi = item.Object as ProjectItem

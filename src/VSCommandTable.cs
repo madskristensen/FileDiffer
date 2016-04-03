@@ -12,11 +12,11 @@ namespace FileDiffer
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidDiffFilesCommandPackageString = "6e490dec-1b23-471e-8120-f164af6b268a";
-        public const string guidDiffFilesCommandPackageCmdSetString = "5034b97c-760a-45e5-a15d-d86dcfae06f7";
+        public const string guidPackageString = "6e490dec-1b23-471e-8120-f164af6b268a";
+        public const string guidDiffFilesCmdSetString = "5034b97c-760a-45e5-a15d-d86dcfae06f7";
         public const string guidImagesString = "ea57ba5f-bab9-4639-bac5-77c2f655fa44";
-        public static Guid guidDiffFilesCommandPackage = new Guid(guidDiffFilesCommandPackageString);
-        public static Guid guidDiffFilesCommandPackageCmdSet = new Guid(guidDiffFilesCommandPackageCmdSetString);
+        public static Guid guidPackage = new Guid(guidPackageString);
+        public static Guid guidDiffFilesCmdSet = new Guid(guidDiffFilesCmdSetString);
         public static Guid guidImages = new Guid(guidImagesString);
     }
     /// <summary>
