@@ -14,9 +14,10 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 ## Features
 
 - Compare two files in Solution Explorer
+- Compare a file with any other file on disk
 
 ### Compare files
-Select two files in solution explorer and
+Select one or two files in Solution Explorer and
 right-click.
 
 ![Context Menu](art/context-menu.png)
@@ -26,6 +27,9 @@ diff view.
 
 ![Diff View](art/diff-view.png)
 
+If you only selected a single file, a file
+selector prompt will show up to let you select
+which file to diff against.
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
