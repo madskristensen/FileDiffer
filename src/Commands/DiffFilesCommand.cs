@@ -60,10 +60,12 @@ namespace FileDiffer
 
             if (CanFilesBeCompared(out file1, out file2))
             {
-                var command = _dte.Commands.Item("Tools.DiffFiles");
+                // This is the guid and id for the Tools.DiffFiles command
+                string diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
+                int diffFilesId = 256;
+                object args = $"\"{file1}\" \"{file2}\"";
 
-                if (command.IsAvailable)
-                    _dte.ExecuteCommand(command.LocalizedName, $"\"{file1}\" \"{file2}\"");
+                _dte.Commands.Raise(diffFilesCmd, diffFilesId, ref args, ref args);
             }
         }
 
