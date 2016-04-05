@@ -1,6 +1,7 @@
 # Roadmap
 
 - [x] Hide when more than 2 files are selected
+- [ ] Support for non-English versions of VS
 
 Features that have a checkmark are complete and available for
 download in the

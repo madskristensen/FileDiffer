@@ -60,7 +60,10 @@ namespace FileDiffer
 
             if (CanFilesBeCompared(out file1, out file2))
             {
-                _dte.ExecuteCommand("Tools.DiffFiles", $"\"{file1}\" \"{file2}\"");
+                var command = _dte.Commands.Item("Tools.DiffFiles");
+
+                if (command.IsAvailable)
+                    _dte.ExecuteCommand(command.LocalizedName, $"\"{file1}\" \"{file2}\"");
             }
         }
 
