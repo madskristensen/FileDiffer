@@ -1,7 +1,6 @@
 # Roadmap
 
-- [x] Hide when more than 2 files are selected
-- [ ] Support for non-English versions of VS
+- [ ] Nothing yet...
 
 Features that have a checkmark are complete and available for
 download in the
@@ -11,6 +10,13 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.2
+
+**2016-04-05**
+
+- [x] Hide when more than 2 files are selected
+- [x] Support for non-English versions of VS
 
 ## 1.1
 
