@@ -1,7 +1,6 @@
 # Roadmap
 
-- [x] Support for Visual Studio _v15_
-- [x] Support for multiple project file selection
+- [ ] Nothing yet...
 
 Features that have a checkmark are complete and available for
 download in the
@@ -11,6 +10,13 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.3
+
+**2016-04-07**
+
+- [x] Support for Visual Studio _v15_
+- [x] Support for multiple project file selection
 
 ## 1.2
 
