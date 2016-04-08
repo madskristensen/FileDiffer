@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Support for Visual Studio _v15_
+- [x] Support for Visual Studio _v15_
 - [x] Support for multiple project file selection
 
 Features that have a checkmark are complete and available for
