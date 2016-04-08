@@ -9,9 +9,6 @@
             <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
-          <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM"/>
-          </Group>
         </Groups>
 
         <Buttons>
@@ -34,6 +31,9 @@
     <CommandPlacements>
         <CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
+        </CommandPlacement>
+        <CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM"/>
         </CommandPlacement>
     </CommandPlacements>
 
