@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.Win32;
 
 namespace FileDiffer
 {
@@ -60,13 +63,62 @@ namespace FileDiffer
 
             if (CanFilesBeCompared(out file1, out file2))
             {
-                // This is the guid and id for the Tools.DiffFiles command
-                string diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
-                int diffFilesId = 256;
-                object args = $"\"{file1}\" \"{file2}\"";
-
-                _dte.Commands.Raise(diffFilesCmd, diffFilesId, ref args, ref args);
+                if (!DiffFileUsingCustomTool(file1, file2))
+                {
+                    DiffFilesUsingDefaultTool(file1, file2);
+                }
             }
+        }
+
+        private void DiffFilesUsingDefaultTool(string file1, string file2)
+        {
+            // This is the guid and id for the Tools.DiffFiles command
+            string diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
+            int diffFilesId = 256;
+            object args = $"\"{file1}\" \"{file2}\"";
+
+            _dte.Commands.Raise(diffFilesCmd, diffFilesId, ref args, ref args);
+        }
+
+        //Visual Studio allows replacing the default diff tool with a custom one.
+        //See, for example:
+        //Using WinMerge: https://blog.paulbouwer.com/2010/01/31/replace-diffmerge-tool-in-visual-studio-team-system-with-winmerge/
+        //Using BeyondCompare: http://stackoverflow.com/questions/4466238/how-to-configure-visual-studio-to-use-beyond-compare
+        private bool DiffFileUsingCustomTool(string file1, string file2)
+        {
+            try
+            {
+                //Checking the registry to see if a custom tool is configured
+                //Relevant information: https://social.msdn.microsoft.com/Forums/vstudio/en-US/37a26013-2f78-4519-85e5-d896ac27f31e/see-what-default-visual-studio-tfexe-compare-tool-is-set-to-using-visual-studio-api?forum=vsx
+                string registryFolder = $"{_dte.RegistryRoot}\\TeamFoundation\\SourceControl\\DiffTools\\.*\\Compare";
+
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryFolder))
+                {
+                    string command = key?.GetValue("Command") as string;
+                    if (string.IsNullOrEmpty(command)) return false;
+
+                    string args = key.GetValue("Arguments") as string;
+                    if (string.IsNullOrEmpty(args)) return false;
+
+                    //Understanding the arguments: https://msdn.microsoft.com/en-us/library/ms181446(v=vs.100).aspx
+                    args =
+                        args.Replace("%1", $"\"{file1}\"")
+                            .Replace("%2", $"\"{file2}\"")
+                            .Replace("%5", string.Empty)
+                            .Replace("%6", $"\"{file1}\"")
+                            .Replace("%7", $"\"{file2}\"");
+                    System.Diagnostics.Process.Start(command, args);                    
+                }
+                return true;
+            }
+            catch (ObjectDisposedException) { return false; }
+            catch (SecurityException) { return false; }
+            catch (InvalidOperationException) { return false; }
+            catch (FileNotFoundException) { return false; }
+            catch (Win32Exception) { return false; }
+            catch (ArgumentException) { return false; }
+            catch (IOException) { return false; }
+            catch (UnauthorizedAccessException) { return false; }
         }
 
         private bool CanFilesBeCompared(out string file1, out string file2)
