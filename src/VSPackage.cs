@@ -5,10 +5,11 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace FileDiffer
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids80.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [Guid(PackageGuids.guidPackageString)]
     public sealed class VSPackage : Package
     {
@@ -17,6 +18,5 @@ namespace FileDiffer
             DiffFilesCommand.Initialize(this);
             base.Initialize();
         }
-
     }
 }
