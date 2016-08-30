@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
-using System.Security;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
+using Task = System.Threading.Tasks.Task;
 
 namespace FileDiffer
 {
@@ -18,34 +17,23 @@ namespace FileDiffer
         private readonly Package _package;
         private readonly DTE2 _dte;
 
-        private DiffFilesCommand(Package package)
+        private DiffFilesCommand(OleMenuCommandService commandService, DTE2 dte)
         {
-            if (package == null)
-            {
-                throw new ArgumentNullException(nameof(package));
-            }
+            _dte = dte;
 
-            _package = package;
-            _dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
-
-            var commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
-
-            var id = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
-            var command = new OleMenuCommand(CommandCallback, id);
+            var commandId = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
+            var command = new OleMenuCommand(CommandCallback, commandId);
             command.BeforeQueryStatus += BeforeQueryStatus;
             commandService.AddCommand(command);
         }
 
         public static DiffFilesCommand Instance { get; private set; }
 
-        private IServiceProvider ServiceProvider
+        public static async Task Initialize(AsyncPackage package)
         {
-            get { return _package; }
-        }
-
-        public static void Initialize(Package package)
-        {
-            Instance = new DiffFilesCommand(package);
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
+            Instance = new DiffFilesCommand(commandService, dte);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)
@@ -107,18 +95,15 @@ namespace FileDiffer
                             .Replace("%5", string.Empty)
                             .Replace("%6", $"\"{file1}\"")
                             .Replace("%7", $"\"{file2}\"");
-                    System.Diagnostics.Process.Start(command, args);                    
+                    System.Diagnostics.Process.Start(command, args);
                 }
                 return true;
             }
-            catch (ObjectDisposedException) { return false; }
-            catch (SecurityException) { return false; }
-            catch (InvalidOperationException) { return false; }
-            catch (FileNotFoundException) { return false; }
-            catch (Win32Exception) { return false; }
-            catch (ArgumentException) { return false; }
-            catch (IOException) { return false; }
-            catch (UnauthorizedAccessException) { return false; }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex);
+                return false;
+            }
         }
 
         private bool CanFilesBeCompared(out string file1, out string file2)
