@@ -13,14 +13,10 @@ on the official Visual Studio extension gallery.
 
 ## 1.3
 
-**2016-04-07**
-
 - [x] Support for Visual Studio _v15_
 - [x] Support for multiple project file selection
 
 ## 1.2
-
-**2016-04-05**
 
 - [x] Hide when more than 2 files are selected
 - [x] Support for non-English versions of VS
@@ -33,8 +29,6 @@ on the official Visual Studio extension gallery.
 - [x] Support for Website Project
 
 ## 1.0
-
-**2016-04-01**
 
 - [x] Initial release
 - [x] Compare two files from SolExp
