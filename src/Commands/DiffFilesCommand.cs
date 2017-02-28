@@ -108,12 +108,31 @@ namespace FileDiffer
 
         private bool CanFilesBeCompared(out string file1, out string file2)
         {
+
             var items = GetSelectedFiles();
 
-            file1 = items.ElementAtOrDefault(0);
-            file2 = items.ElementAtOrDefault(1);
+            try
+            {
+                file1 = items.ElementAtOrDefault(0);
+                file2 = items.ElementAtOrDefault(1);
+            } catch
+            {
+                file1 = null;
+                file2 = null;
+            }
 
-            if (items.Count() == 1)
+            if (string.IsNullOrEmpty(file1) && string.IsNullOrEmpty(file2))
+            {
+                var dialog = new OpenFileDialog();
+                dialog.InitialDirectory = Directory.GetCurrentDirectory();
+                dialog.ShowDialog();
+                file1 = dialog.FileName;
+
+                var dialog2 = new OpenFileDialog();
+                dialog2.InitialDirectory = Path.GetDirectoryName(file1);
+                dialog2.ShowDialog();
+                file2 = dialog2.FileName;
+            } else if (items.Count() == 1)
             {
                 var dialog = new OpenFileDialog();
                 dialog.InitialDirectory = Path.GetDirectoryName(file1);

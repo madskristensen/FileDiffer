@@ -11,6 +11,13 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.4
+
+**2016-04-24**
+
+- [x] Add file selection dialog
+- [x] Add 'Tool' menu entry
+
 ## 1.3
 
 - [x] Support for Visual Studio _v15_

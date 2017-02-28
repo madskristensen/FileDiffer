@@ -15,8 +15,12 @@ See the [change log](CHANGELOG.md) for changes and road map.
 
 - Compare two files in Solution Explorer
 - Compare a file with any other file on disk
+- Compare any two files from disk via 'Tool' menu
 
 ### Compare files
+
+#### Option 1
+
 Select one or two files in Solution Explorer and
 right-click.
 
@@ -30,6 +34,13 @@ diff view.
 If you only selected a single file, a file
 selector prompt will show up to let you select
 which file to diff against.
+
+#### Option 2
+
+If you select main menu 'Tools'&#8594;'Compare Files...', 
+you will be prompted twice for the files to compare.
+
+![Tool Menu](art/tool-menu.png)
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)

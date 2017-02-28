@@ -9,18 +9,29 @@
             <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
             </Group>
+          <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_TOOLS_EXT_TOOLS" />
+          </Group>
         </Groups>
 
         <Buttons>
             <Button guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
                 <Parent guid="guidDiffFilesCmdSet" id="MyMenuGroup" />
                 <Icon guid="guidImages" id="bmpPic1" />
-                <CommandFlag>DefaultInvisible</CommandFlag>
-                <CommandFlag>DynamicVisibility</CommandFlag>
-                <Strings>
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+              <Strings>
                     <ButtonText>Compare Files...</ButtonText>
                 </Strings>
             </Button>
+          <Button guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
+            <Parent guid="guidSHLMainMenu" id="IDG_VS_TOOLS_EXT_TOOLS" />
+            <Icon guid="guidImages" id="bmpPic1" />
+            <CommandFlag>IconIsMoniker</CommandFlag>
+            <Strings>
+              <ButtonText>Compare Files...</ButtonText>
+            </Strings>
+          </Button>
         </Buttons>
 
         <Bitmaps>
