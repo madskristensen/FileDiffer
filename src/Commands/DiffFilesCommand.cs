@@ -14,7 +14,6 @@ namespace FileDiffer
 {
     internal sealed class DiffFilesCommand
     {
-        private readonly Package _package;
         private readonly DTE2 _dte;
 
         private DiffFilesCommand(OleMenuCommandService commandService, DTE2 dte)
@@ -23,33 +22,21 @@ namespace FileDiffer
 
             var commandId = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
             var command = new OleMenuCommand(CommandCallback, commandId);
-            command.BeforeQueryStatus += BeforeQueryStatus;
             commandService.AddCommand(command);
         }
 
         public static DiffFilesCommand Instance { get; private set; }
 
-        public static async Task Initialize(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package)
         {
             var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
             Instance = new DiffFilesCommand(commandService, dte);
         }
 
-        private void BeforeQueryStatus(object sender, EventArgs e)
-        {
-            var button = (OleMenuCommand)sender;
-            var selectedFiles = GetSelectedFiles();
-
-            // Only show if 1 or 2 files are selected
-            button.Visible = selectedFiles.Count() <= 2;
-        }
-
         private void CommandCallback(object sender, EventArgs e)
         {
-            string file1, file2;
-
-            if (CanFilesBeCompared(out file1, out file2))
+            if (CanFilesBeCompared(out string file1, out string file2))
             {
                 if (!DiffFileUsingCustomTool(file1, file2))
                 {
@@ -108,7 +95,7 @@ namespace FileDiffer
 
         private bool CanFilesBeCompared(out string file1, out string file2)
         {
-            var items = GetSelectedFiles();
+            IEnumerable<string> items = GetSelectedFiles();
 
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1);
