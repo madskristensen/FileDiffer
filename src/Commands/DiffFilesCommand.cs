@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.Win32;
 using Task = System.Threading.Tasks.Task;
@@ -14,27 +15,22 @@ namespace FileDiffer
 {
     internal sealed class DiffFilesCommand
     {
-        private readonly DTE2 _dte;
+        private static DTE2 _dte;
 
-        private DiffFilesCommand(OleMenuCommandService commandService, DTE2 dte)
+        public static async Task InitializeAsync(AsyncPackage package)
         {
-            _dte = dte;
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            Assumes.Present(commandService);
+
+            _dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
+            Assumes.Present(_dte);
 
             var commandId = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
             var command = new OleMenuCommand(CommandCallback, commandId);
             commandService.AddCommand(command);
         }
 
-        public static DiffFilesCommand Instance { get; private set; }
-
-        public static async Task InitializeAsync(AsyncPackage package)
-        {
-            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
-            Instance = new DiffFilesCommand(commandService, dte);
-        }
-
-        private void CommandCallback(object sender, EventArgs e)
+        private static void CommandCallback(object sender, EventArgs e)
         {
             if (CanFilesBeCompared(out var file1, out var file2))
             {
@@ -45,7 +41,7 @@ namespace FileDiffer
             }
         }
 
-        private void DiffFilesUsingDefaultTool(string file1, string file2)
+        private static void DiffFilesUsingDefaultTool(string file1, string file2)
         {
             // This is the guid and id for the Tools.DiffFiles command
             var diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
@@ -59,7 +55,7 @@ namespace FileDiffer
         //See, for example:
         //Using WinMerge: https://blog.paulbouwer.com/2010/01/31/replace-diffmerge-tool-in-visual-studio-team-system-with-winmerge/
         //Using BeyondCompare: http://stackoverflow.com/questions/4466238/how-to-configure-visual-studio-to-use-beyond-compare
-        private bool DiffFileUsingCustomTool(string file1, string file2)
+        private static bool DiffFileUsingCustomTool(string file1, string file2)
         {
             try
             {
@@ -99,7 +95,7 @@ namespace FileDiffer
             }
         }
 
-        private bool CanFilesBeCompared(out string file1, out string file2)
+        private static bool CanFilesBeCompared(out string file1, out string file2)
         {
             IEnumerable<string> items = GetSelectedFiles();
 
@@ -120,7 +116,7 @@ namespace FileDiffer
             return !string.IsNullOrEmpty(file1) && !string.IsNullOrEmpty(file2);
         }
 
-        public IEnumerable<string> GetSelectedFiles()
+        public static IEnumerable<string> GetSelectedFiles()
         {
             var items = (Array)_dte.ToolWindows.SolutionExplorer.SelectedItems;
 

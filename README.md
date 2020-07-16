@@ -9,8 +9,6 @@ or get the [CI build](http://vsixgallery.com/extension/ea5c68d6-cdae-4e79-bd46-2
 
 The easiest way to diff two files directly in solution explorer
 
-See the [change log](CHANGELOG.md) for changes and road map.
-
 ## Features
 
 - Compare two files in Solution Explorer
