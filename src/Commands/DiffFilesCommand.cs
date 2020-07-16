@@ -36,7 +36,7 @@ namespace FileDiffer
 
         private void CommandCallback(object sender, EventArgs e)
         {
-            if (CanFilesBeCompared(out string file1, out string file2))
+            if (CanFilesBeCompared(out var file1, out var file2))
             {
                 if (!DiffFileUsingCustomTool(file1, file2))
                 {
@@ -48,8 +48,8 @@ namespace FileDiffer
         private void DiffFilesUsingDefaultTool(string file1, string file2)
         {
             // This is the guid and id for the Tools.DiffFiles command
-            string diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
-            int diffFilesId = 256;
+            var diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
+            var diffFilesId = 256;
             object args = $"\"{file1}\" \"{file2}\"";
 
             _dte.Commands.Raise(diffFilesCmd, diffFilesId, ref args, ref args);
@@ -65,15 +65,21 @@ namespace FileDiffer
             {
                 //Checking the registry to see if a custom tool is configured
                 //Relevant information: https://social.msdn.microsoft.com/Forums/vstudio/en-US/37a26013-2f78-4519-85e5-d896ac27f31e/see-what-default-visual-studio-tfexe-compare-tool-is-set-to-using-visual-studio-api?forum=vsx
-                string registryFolder = $"{_dte.RegistryRoot}\\TeamFoundation\\SourceControl\\DiffTools\\.*\\Compare";
+                var registryFolder = $"{_dte.RegistryRoot}\\TeamFoundation\\SourceControl\\DiffTools\\.*\\Compare";
 
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(registryFolder))
                 {
-                    string command = key?.GetValue("Command") as string;
-                    if (string.IsNullOrEmpty(command)) return false;
+                    var command = key?.GetValue("Command") as string;
+                    if (string.IsNullOrEmpty(command))
+                    {
+                        return false;
+                    }
 
-                    string args = key.GetValue("Arguments") as string;
-                    if (string.IsNullOrEmpty(args)) return false;
+                    var args = key.GetValue("Arguments") as string;
+                    if (string.IsNullOrEmpty(args))
+                    {
+                        return false;
+                    }
 
                     //Understanding the arguments: https://msdn.microsoft.com/en-us/library/ms181446(v=vs.100).aspx
                     args =
@@ -102,8 +108,10 @@ namespace FileDiffer
 
             if (items.Count() == 1)
             {
-                var dialog = new OpenFileDialog();
-                dialog.InitialDirectory = Path.GetDirectoryName(file1);
+                var dialog = new OpenFileDialog
+                {
+                    InitialDirectory = Path.GetDirectoryName(file1)
+                };
                 dialog.ShowDialog();
 
                 file2 = dialog.FileName;
