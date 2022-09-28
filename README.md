@@ -7,7 +7,7 @@ or get the [CI build](http://vsixgallery.com/extension/ea5c68d6-cdae-4e79-bd46-2
 
 ---------------------------------------
 
-The easiest way to diff two files directly in solution explorer
+The easiest way to diff two files directly in solution explorer. This extension is inspired by a Visual Studio [feature request](https://developercommunity.visualstudio.com/t/is-there-a-way-to-compare-two-files-from-solution/619706), so please vote for it if you think it should be built in.
 
 ## Features
 

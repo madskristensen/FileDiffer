@@ -12,6 +12,8 @@ namespace FileDiffer
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class FileDifferPackage : AsyncPackage
     {
+
+
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync();
