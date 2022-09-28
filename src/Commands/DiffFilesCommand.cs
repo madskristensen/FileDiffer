@@ -110,7 +110,9 @@ namespace FileDiffer
                 };
                 dialog.ShowDialog();
 
-                file2 = dialog.FileName;
+                // When only 1 file is selected, swap them around so the diff view shows the selected file on the rigth
+                file2 = file1;
+                file1 = dialog.FileName;
             }
 
             return !string.IsNullOrEmpty(file1) && !string.IsNullOrEmpty(file2);
