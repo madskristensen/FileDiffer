@@ -44,6 +44,7 @@ namespace FileDiffer
         public const int EditorSelectionClipboard = 0x0150;
         public const int EditorBufferClipboard = 0x0160;
         public const int EditorBufferFile = 0x0170;
+        public const int EditorBufferSaved = 0x0180;
         public const int GitEditorContextGroup = 0xE002;
     }
 }

@@ -37,8 +37,9 @@ If there is text content on the clipboard, you can compare a file with it by sel
 There are also commands specific to the code editor. By right-clicking inside the code editor, you’ll get the following options for diffing:
 
 * Compare selection with clipboard
-* Compare active document with clipboard
-* Compare active document with file on disk
+* Compare active file with clipboard
+* Compare active file with saved
+* Compare active file with file on disk
 
 ![Context Menu](art/editor.png)
 

@@ -52,6 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\DocumentSavedCommand.cs" />
     <Compile Include="Commands\DocumentFileCommand.cs" />
     <Compile Include="Commands\SelectionClipboardCommand.cs" />
     <Compile Include="Commands\DocumentClipboardCommand.cs" />

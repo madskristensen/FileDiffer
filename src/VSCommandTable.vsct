@@ -103,17 +103,26 @@
         <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Document with Clipboard</ButtonText>
-          <LocCanonicalName>.CompareWith.DocumentWithClipboard</LocCanonicalName>
+          <ButtonText>Active File with Clipboard</ButtonText>
+          <LocCanonicalName>.CompareWith.ActiveFileWithClipboard</LocCanonicalName>
         </Strings>
       </Button>
-      <Button guid="guidDiffFilesCmdSet" id="EditorBufferFile" priority="0x0140" type="Button">
+      <Button guid="guidDiffFilesCmdSet" id="EditorBufferSaved" priority="0x0140" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="SaveAs" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Active File with Saved</ButtonText>
+          <LocCanonicalName>.CompareWith.ActiveFileWithSaved</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="EditorBufferFile" priority="0x0150" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
         <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>Document with File on Disk</ButtonText>
-          <LocCanonicalName>.CompareWith.DocumentWithFile</LocCanonicalName>
+          <ButtonText>Active File with...</ButtonText>
+          <LocCanonicalName>.CompareWith.ActiveFileWith</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>
@@ -149,6 +158,7 @@
       <IDSymbol name="EditorSelectionClipboard" value="0x0150" />
       <IDSymbol name="EditorBufferClipboard" value="0x0160" />
       <IDSymbol name="EditorBufferFile" value="0x0170" />
+      <IDSymbol name="EditorBufferSaved" value="0x0180" />
     </GuidSymbol>
 
     <!-- Externals -->

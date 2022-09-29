@@ -26,6 +26,7 @@ namespace FileDiffer
             await DocumentClipboardCommand.InitializeAsync(this);
             await SelectionClipboardCommand.InitializeAsync(this);
             await DocumentFileCommand.InitializeAsync(this);    
+            await DocumentSavedCommand.InitializeAsync(this);    
         }
     }
 }
