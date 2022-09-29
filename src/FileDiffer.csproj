@@ -52,7 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\DiffFilesCommand.cs" />
+    <Compile Include="Commands\ClipboardCommand.cs" />
+    <Compile Include="Commands\FilesOnDiskCommand.cs" />
+    <Compile Include="Commands\UnmodifiedCommand.cs" />
+    <Compile Include="Commands\SelectedFilesCommand.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,7 +98,7 @@
       <Version>15.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools">
-      <Version>17.0.2120-preview2</Version>
+      <Version>17.3.2094</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

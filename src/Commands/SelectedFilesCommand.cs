@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft;
@@ -13,7 +11,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace FileDiffer
 {
-    internal sealed class DiffFilesCommand
+    internal sealed class SelectedFilesCommand
     {
         private static DTE2 _dte;
 
@@ -27,7 +25,16 @@ namespace FileDiffer
 
             var commandId = new CommandID(PackageGuids.guidDiffFilesCmdSet, PackageIds.DiffFilesCommandId);
             var command = new OleMenuCommand(CommandCallback, commandId);
+            command.BeforeQueryStatus += Command_BeforeQueryStatus;
             commandService.AddCommand(command);
+        }
+
+        private static void Command_BeforeQueryStatus(object sender, EventArgs e)
+        {
+            var command = (OleMenuCommand)sender;
+            IEnumerable<string> items = GetSelectedFiles();
+
+            command.Visible = command.Enabled = items.Count() == 2;
         }
 
         private static void CommandCallback(object sender, EventArgs e)
@@ -41,7 +48,7 @@ namespace FileDiffer
             }
         }
 
-        private static void DiffFilesUsingDefaultTool(string file1, string file2)
+        public static void DiffFilesUsingDefaultTool(string file1, string file2)
         {
             // This is the guid and id for the Tools.DiffFiles command
             var diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
@@ -55,7 +62,7 @@ namespace FileDiffer
         //See, for example:
         //Using WinMerge: https://blog.paulbouwer.com/2010/01/31/replace-diffmerge-tool-in-visual-studio-team-system-with-winmerge/
         //Using BeyondCompare: http://stackoverflow.com/questions/4466238/how-to-configure-visual-studio-to-use-beyond-compare
-        private static bool DiffFileUsingCustomTool(string file1, string file2)
+        public static bool DiffFileUsingCustomTool(string file1, string file2)
         {
             try
             {
@@ -102,20 +109,7 @@ namespace FileDiffer
             file1 = items.ElementAtOrDefault(0);
             file2 = items.ElementAtOrDefault(1);
 
-            if (items.Count() == 1)
-            {
-                var dialog = new OpenFileDialog
-                {
-                    InitialDirectory = Path.GetDirectoryName(file1)
-                };
-                dialog.ShowDialog();
-
-                // When only 1 file is selected, swap them around so the diff view shows the selected file on the rigth
-                file2 = file1;
-                file1 = dialog.FileName;
-            }
-
-            return !string.IsNullOrEmpty(file1) && !string.IsNullOrEmpty(file2);
+            return items.Count() == 2;
         }
 
         public static IEnumerable<string> GetSelectedFiles()

@@ -6,29 +6,88 @@
   <Include href="KnownImageIds.vsct" />
 
   <Commands package="guidPackage">
+    <Menus>
+      <Menu guid="guidDiffFilesCmdSet" id="FlyoutMenu" priority="100" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_SCC"/>
+        <Strings>
+          <ButtonText>Compare With...</ButtonText>
+          <MenuText>Ostehat</MenuText>
+          <ToolTipText>Tooltip for shizzle</ToolTipText>
+        </Strings>
+      </Menu>
+    </Menus>
+    
     <Groups>
-      <Group guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0300">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE"/>
+      <Group guid="guidDiffFilesCmdSet" id="FilesMenuGroup" priority="0x0300">
+        <Parent guid="guidDiffFilesCmdSet" id="FlyoutMenu"/>
       </Group>
+      <Group guid="guidDiffFilesCmdSet" id="GitMenuGroup" priority="0x0310">
+        <Parent guid="guidDiffFilesCmdSet" id="FlyoutMenu"/>
+      </Group>      
     </Groups>
 
     <Buttons>
       <Button guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidDiffFilesCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Select" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Selected Files</ButtonText>
+          <LocCanonicalName>.CompareWith.SelectedFiles</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="FileOnDisk" priority="0x0100" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Another File on Disk</ButtonText>
+          <LocCanonicalName>.CompareWith.FileOnDisk</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="Clipboard" priority="0x0110" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Paste" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Clipboard</ButtonText>
+          <LocCanonicalName>.CompareWith.Clipboard</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="Unmodified" priority="0x0110" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="GitMenuGroup" />
         <Icon guid="ImageCatalogGuid" id="CompareFiles" />
         <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <ButtonText>Compare Files...</ButtonText>
+          <ButtonText>Unmodified Version</ButtonText>
+          <LocCanonicalName>.CompareWith.UnmodifiedVersion</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="PreviousVersion" priority="0x0120" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="GitMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="History" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Previous Version... (coming soon)</ButtonText>
+          <LocCanonicalName>.CompareWith.PreviousVersion</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>
   </Commands>
 
   <CommandPlacements>
-    <CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
+    <!--<CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_WEBITEMNODE"/>
-    </CommandPlacement>
-    <CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
+    </CommandPlacement>-->
+    <CommandPlacement guid="guidDiffFilesCmdSet" id="FlyoutMenu" priority="0x0200">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM"/>
     </CommandPlacement>
   </CommandPlacements>
@@ -37,8 +96,14 @@
     <GuidSymbol name="guidPackage" value="{6e490dec-1b23-471e-8120-f164af6b268a}" />
 
     <GuidSymbol name="guidDiffFilesCmdSet" value="{5034b97c-760a-45e5-a15d-d86dcfae06f7}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="FilesMenuGroup" value="0x1020" />
+      <IDSymbol name="GitMenuGroup" value="0x1030" />
+      <IDSymbol name="FlyoutMenu" value="0x1040" />
       <IDSymbol name="DiffFilesCommandId" value="0x0100" />
+      <IDSymbol name="Unmodified" value="0x0110" />
+      <IDSymbol name="PreviousVersion" value="0x0120" />
+      <IDSymbol name="Clipboard" value="0x0130" />
+      <IDSymbol name="FileOnDisk" value="0x0140" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

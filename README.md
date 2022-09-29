@@ -16,28 +16,18 @@ The easiest way to diff two files directly in solution explorer. This extension 
 
 ### Compare files
 Select one or two files in Solution Explorer and
-right-click.
+right-click to bring up the context menu.
 
 ![Context Menu](art/context-menu.png)
 
-Then select *Compare Files...* to see the 
+Then select *Compare Files...* to see them side-by-side in the 
 diff view.
 
 ![Diff View](art/diff-view.png)
 
 If you only selected a single file, a file
 selector prompt will show up to let you select
-which file to diff against.
-
-## Contribute
-Check out the [contribution guidelines](CONTRIBUTING.md)
-if you want to contribute to this project.
-
-For cloning and building this project yourself, make sure
-to install the
-[Extensibility Tools 2015](https://visualstudiogallery.msdn.microsoft.com/ab39a092-1343-46e2-b0f1-6a3f91155aa6)
-extension for Visual Studio which enables some features
-used by this project.
+which file on disk to diff against.
 
 ## License
 [Apache 2.0](LICENSE)
