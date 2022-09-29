@@ -10,20 +10,27 @@
       <Menu guid="guidDiffFilesCmdSet" id="FlyoutMenu" priority="100" type="Menu">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_ITEM_SCC"/>
         <Strings>
-          <ButtonText>Compare With...</ButtonText>
-          <MenuText>Ostehat</MenuText>
-          <ToolTipText>Tooltip for shizzle</ToolTipText>
+          <ButtonText>Compare</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidDiffFilesCmdSet" id="EditorFlyoutMenu" priority="100" type="Menu">
+        <Parent guid="GitPackage" id="GitEditorContextGroup"/>
+        <Strings>
+          <ButtonText>Compare</ButtonText>
         </Strings>
       </Menu>
     </Menus>
-    
+
     <Groups>
       <Group guid="guidDiffFilesCmdSet" id="FilesMenuGroup" priority="0x0300">
         <Parent guid="guidDiffFilesCmdSet" id="FlyoutMenu"/>
       </Group>
       <Group guid="guidDiffFilesCmdSet" id="GitMenuGroup" priority="0x0310">
         <Parent guid="guidDiffFilesCmdSet" id="FlyoutMenu"/>
-      </Group>      
+      </Group>
+      <Group guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" priority="0x0310">
+        <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenu"/>
+      </Group>
     </Groups>
 
     <Buttons>
@@ -45,7 +52,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <ButtonText>Another File on Disk</ButtonText>
+          <ButtonText>File with Other File on Disk</ButtonText>
           <LocCanonicalName>.CompareWith.FileOnDisk</LocCanonicalName>
         </Strings>
       </Button>
@@ -56,7 +63,7 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <ButtonText>Clipboard</ButtonText>
+          <ButtonText>File with Clipboard</ButtonText>
           <LocCanonicalName>.CompareWith.Clipboard</LocCanonicalName>
         </Strings>
       </Button>
@@ -66,7 +73,7 @@
         <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <ButtonText>Unmodified Version</ButtonText>
+          <ButtonText>File with Unmodified Version</ButtonText>
           <LocCanonicalName>.CompareWith.UnmodifiedVersion</LocCanonicalName>
         </Strings>
       </Button>
@@ -76,12 +83,45 @@
         <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
-          <ButtonText>Previous Version... (coming soon)</ButtonText>
+          <ButtonText>File with Previous Version... (coming soon)</ButtonText>
           <LocCanonicalName>.CompareWith.PreviousVersion</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="EditorSelectionClipboard" priority="0x0120" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="RectangleSelection" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Selection with Clipboard</ButtonText>
+          <LocCanonicalName>.CompareWith.SelectionWithClipboard</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="EditorBufferClipboard" priority="0x0130" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Document" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Document with Clipboard</ButtonText>
+          <LocCanonicalName>.CompareWith.DocumentWithClipboard</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="EditorBufferFile" priority="0x0140" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>Document with File on Disk</ButtonText>
+          <LocCanonicalName>.CompareWith.DocumentWithFile</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>
   </Commands>
+
+  <KeyBindings>
+    <KeyBinding guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" editor="guidSolutionExplorerToolWindow" key1="D" mod1="Control" />
+  </KeyBindings>
 
   <CommandPlacements>
     <!--<CommandPlacement guid="guidDiffFilesCmdSet" id="MyMenuGroup" priority="0x0200">
@@ -99,11 +139,23 @@
       <IDSymbol name="FilesMenuGroup" value="0x1020" />
       <IDSymbol name="GitMenuGroup" value="0x1030" />
       <IDSymbol name="FlyoutMenu" value="0x1040" />
+      <IDSymbol name="EditorFlyoutMenu" value="0x1050" />
+      <IDSymbol name="EditorFlyoutMenuGroup" value="0x1060" />
       <IDSymbol name="DiffFilesCommandId" value="0x0100" />
       <IDSymbol name="Unmodified" value="0x0110" />
       <IDSymbol name="PreviousVersion" value="0x0120" />
       <IDSymbol name="Clipboard" value="0x0130" />
       <IDSymbol name="FileOnDisk" value="0x0140" />
+      <IDSymbol name="EditorSelectionClipboard" value="0x0150" />
+      <IDSymbol name="EditorBufferClipboard" value="0x0160" />
+      <IDSymbol name="EditorBufferFile" value="0x0170" />
+    </GuidSymbol>
+
+    <!-- Externals -->
+    <GuidSymbol name="guidSolutionExplorerToolWindow" value="{3AE79031-E1BC-11D0-8F78-00A0C9110057}" />
+
+    <GuidSymbol name="GitPackage" value="{57735D06-C920-4415-A2E0-7D6E6FBDFA99}">
+      <IDSymbol name="GitEditorContextGroup" value="0xe002"/>
     </GuidSymbol>
   </Symbols>
 </CommandTable>

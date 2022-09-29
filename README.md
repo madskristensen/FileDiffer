@@ -9,13 +9,14 @@ or get the [CI build](http://vsixgallery.com/extension/ea5c68d6-cdae-4e79-bd46-2
 
 The easiest way to diff two files directly in solution explorer. This extension is inspired by a Visual Studio [feature request](https://developercommunity.visualstudio.com/t/is-there-a-way-to-compare-two-files-from-solution/619706), so please vote for it if you think it should be built in.
 
-## Features
+![Diff View](art/diff-view.png)
 
-- Compare two files in Solution Explorer
-- Compare file with another file on disk
-- Compare file with content of clipboard
-- Compare file with unmodified version (git)
-- Compare file with previous version (git) - *not yet implemented*
+## Solution Explorer
+Here’s are the commands available from the right-click menu in Solution Explorer:
+
+* Compare two files in Solution Explorer
+* Compare file with another file on disks
+* Compare file with content of clipboard
 
 ### Compare selected files
 Select two files in Solution Explorer and right-click to bring up the context menu.
@@ -24,8 +25,6 @@ Select two files in Solution Explorer and right-click to bring up the context me
 
 Then select *Selected Files* to see them side-by-side in the diff view.
 
-![Diff View](art/diff-view.png)
-
 ### Compare with a file on disk
 If you only selected a single file, a file selector prompt will show up to let you select which file on disk to diff against.
 
@@ -33,6 +32,15 @@ If you only selected a single file, a file selector prompt will show up to let y
 
 ### Compare with clipboard
 If there is text content on the clipboard, you can compare a file with it by selecting *Clipboard* from the context menu.
+
+## Code editor
+There are also commands specific to the code editor. By right-clicking inside the code editor, you’ll get the following options for diffing:
+
+* Compare selection with clipboard
+* Compare active document with clipboard
+* Compare active document with file on disk
+
+![Context Menu](art/editor.png)
 
 ## License
 [Apache 2.0](LICENSE)

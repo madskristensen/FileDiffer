@@ -13,6 +13,7 @@ namespace FileDiffer
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionHasSingleProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionHasMultipleProjects_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(VSConstants.VsEditorFactoryGuid.TextEditor_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class FileDifferPackage : AsyncPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
@@ -22,6 +23,9 @@ namespace FileDiffer
             await FilesOnDiskCommand.InitializeAsync(this);
             await UnmodifiedCommand.InitializeAsync(this);
             await ClipboardCommand.InitializeAsync(this);
+            await DocumentClipboardCommand.InitializeAsync(this);
+            await SelectionClipboardCommand.InitializeAsync(this);
+            await DocumentFileCommand.InitializeAsync(this);    
         }
     }
 }

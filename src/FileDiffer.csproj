@@ -52,10 +52,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\DocumentFileCommand.cs" />
+    <Compile Include="Commands\SelectionClipboardCommand.cs" />
+    <Compile Include="Commands\DocumentClipboardCommand.cs" />
     <Compile Include="Commands\ClipboardCommand.cs" />
     <Compile Include="Commands\FilesOnDiskCommand.cs" />
     <Compile Include="Commands\UnmodifiedCommand.cs" />
     <Compile Include="Commands\SelectedFilesCommand.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

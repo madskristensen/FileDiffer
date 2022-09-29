@@ -12,7 +12,7 @@ namespace FileDiffer
         public const string Name = "File Differ";
         public const string Description = @"The easiest way to diff two files directly in Solution Explorer";
         public const string Language = "en-US";
-        public const string Version = "2.0";
+        public const string Version = "3.0";
         public const string Author = "Mads Kristensen";
         public const string Tags = "compare, files, diff";
     }
