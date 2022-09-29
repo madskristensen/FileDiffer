@@ -12,22 +12,27 @@ The easiest way to diff two files directly in solution explorer. This extension 
 ## Features
 
 - Compare two files in Solution Explorer
-- Compare a file with any other file on disk
+- Compare file with another file on disk
+- Compare file with content of clipboard
+- Compare file with unmodified version (git)
+- Compare file with previous version (git) - *not yet implemented*
 
-### Compare files
-Select one or two files in Solution Explorer and
-right-click to bring up the context menu.
+### Compare selected files
+Select two files in Solution Explorer and right-click to bring up the context menu.
 
-![Context Menu](art/context-menu.png)
+![Context Menu](art/multi-selection.png)
 
-Then select *Compare Files...* to see them side-by-side in the 
-diff view.
+Then select *Selected Files* to see them side-by-side in the diff view.
 
 ![Diff View](art/diff-view.png)
 
-If you only selected a single file, a file
-selector prompt will show up to let you select
-which file on disk to diff against.
+### Compare with a file on disk
+If you only selected a single file, a file selector prompt will show up to let you select which file on disk to diff against.
+
+![Context Menu](art/single-selection.png)
+
+### Compare with clipboard
+If there is text content on the clipboard, you can compare a file with it by selecting *Clipboard* from the context menu.
 
 ## License
 [Apache 2.0](LICENSE)

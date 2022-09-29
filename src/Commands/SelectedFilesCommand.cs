@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -51,13 +51,15 @@ namespace FileDiffer
 
         public static void Diff(string left, string right)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!DiffFileUsingCustomTool(left, right))
             {
                 DiffFilesUsingDefaultTool(left, right);
             }
         }
 
-        public static void DiffFilesUsingDefaultTool(string file1, string file2)
+        private static void DiffFilesUsingDefaultTool(string file1, string file2)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             // This is the guid and id for the Tools.DiffFiles command
@@ -72,7 +74,7 @@ namespace FileDiffer
         //See, for example:
         //Using WinMerge: https://blog.paulbouwer.com/2010/01/31/replace-diffmerge-tool-in-visual-studio-team-system-with-winmerge/
         //Using BeyondCompare: http://stackoverflow.com/questions/4466238/how-to-configure-visual-studio-to-use-beyond-compare
-        public static bool DiffFileUsingCustomTool(string file1, string file2)
+        private static bool DiffFileUsingCustomTool(string file1, string file2)
         {
             try
             {

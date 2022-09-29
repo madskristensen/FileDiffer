@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Utilities;
 using Task = System.Threading.Tasks.Task;
 
 namespace FileDiffer
@@ -36,20 +39,37 @@ namespace FileDiffer
         private static void CommandCallback(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            
+
             if (CanFilesBeCompared())
             {
                 var right = SelectedFilesCommand.GetSelectedFiles().FirstOrDefault();
 
                 if (!string.IsNullOrEmpty(right))
                 {
-                    Encoding encoding = Encoding.Default;
+                    Encoding encoding = GetEncoding(right);
 
-                    var left = Path.GetTempFileName();
+                    var left = Path.ChangeExtension(Path.GetTempFileName(), Path.GetExtension(right));
                     File.WriteAllText(left, Clipboard.GetText(TextDataFormat.Text), encoding);
 
                     SelectedFilesCommand.Diff(left, right);
+                    File.Delete(left);
                 }
+            }
+        }
+
+        private static Encoding GetEncoding(string fileName)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var componentModel = (IComponentModel)ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel));
+            Assumes.Present(componentModel);
+
+            ITextDocumentFactoryService docService = componentModel.GetService<ITextDocumentFactoryService>();
+            IFileToContentTypeService contentTypeService = componentModel.GetService<IFileToContentTypeService>();
+            IContentType contentType = contentTypeService.GetContentTypeForExtension(Path.GetExtension(fileName));
+
+            using (ITextDocument doc = docService.CreateAndLoadTextDocument(fileName, contentType))
+            {
+                return doc.Encoding;
             }
         }
 
