@@ -26,6 +26,7 @@ namespace FileDiffer
 
         private static void Command_BeforeQueryStatus(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = (OleMenuCommand)sender;
             IEnumerable<string> items = SelectedFilesCommand.GetSelectedFiles();
 
@@ -34,6 +35,8 @@ namespace FileDiffer
 
         private static void CommandCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            
             if (CanFilesBeCompared())
             {
                 var right = SelectedFilesCommand.GetSelectedFiles().FirstOrDefault();

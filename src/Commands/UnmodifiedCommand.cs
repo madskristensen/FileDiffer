@@ -28,6 +28,7 @@ namespace FileDiffer
 
         private static void Command_BeforeQueryStatus(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var command = (OleMenuCommand)sender;
 
             Command unmodified = _dte.Commands.Item("Team.Git.CompareWithUnmodified");
@@ -36,6 +37,7 @@ namespace FileDiffer
 
         private static void CommandCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Command command = _dte.Commands.Item("Team.Git.CompareWithUnmodified");
 
             if (command != null && command.IsAvailable)

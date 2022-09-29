@@ -31,6 +31,8 @@ namespace FileDiffer
 
         private static void Command_BeforeQueryStatus(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            
             var command = (OleMenuCommand)sender;
             IEnumerable<string> items = GetSelectedFiles();
 
@@ -39,6 +41,8 @@ namespace FileDiffer
 
         private static void CommandCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            
             if (CanFilesBeCompared(out var file1, out var file2))
             {
                 if (!DiffFileUsingCustomTool(file1, file2))
@@ -50,6 +54,7 @@ namespace FileDiffer
 
         public static void DiffFilesUsingDefaultTool(string file1, string file2)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // This is the guid and id for the Tools.DiffFiles command
             var diffFilesCmd = "{5D4C0442-C0A2-4BE8-9B4D-AB1C28450942}";
             var diffFilesId = 256;
@@ -104,6 +109,7 @@ namespace FileDiffer
 
         private static bool CanFilesBeCompared(out string file1, out string file2)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             IEnumerable<string> items = GetSelectedFiles();
 
             file1 = items.ElementAtOrDefault(0);
@@ -114,6 +120,7 @@ namespace FileDiffer
 
         public static IEnumerable<string> GetSelectedFiles()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var items = (Array)_dte.ToolWindows.SolutionExplorer.SelectedItems;
 
             return from item in items.Cast<UIHierarchyItem>()
