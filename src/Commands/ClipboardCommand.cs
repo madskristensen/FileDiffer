@@ -48,10 +48,7 @@ namespace FileDiffer
                     var left = Path.GetTempFileName();
                     File.WriteAllText(left, Clipboard.GetText(TextDataFormat.Text), encoding);
 
-                    if (!SelectedFilesCommand.DiffFileUsingCustomTool(left, right))
-                    {
-                        SelectedFilesCommand.DiffFilesUsingDefaultTool(left, right);
-                    }
+                    SelectedFilesCommand.Diff(left, right);
                 }
             }
         }

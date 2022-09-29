@@ -45,10 +45,15 @@ namespace FileDiffer
             
             if (CanFilesBeCompared(out var file1, out var file2))
             {
-                if (!DiffFileUsingCustomTool(file1, file2))
-                {
-                    DiffFilesUsingDefaultTool(file1, file2);
-                }
+                Diff(file1, file2);
+            }
+        }
+
+        public static void Diff(string left, string right)
+        {
+            if (!DiffFileUsingCustomTool(left, right))
+            {
+                DiffFilesUsingDefaultTool(left, right);
             }
         }
 

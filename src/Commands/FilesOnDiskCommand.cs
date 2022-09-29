@@ -41,10 +41,7 @@ namespace FileDiffer
 
             if (CanFilesBeCompared(out var file1, out var file2))
             {
-                if (!SelectedFilesCommand.DiffFileUsingCustomTool(file1, file2))
-                {
-                    SelectedFilesCommand.DiffFilesUsingDefaultTool(file1, file2);
-                }
+                SelectedFilesCommand.Diff(file1, file2);
             }
         }
 
