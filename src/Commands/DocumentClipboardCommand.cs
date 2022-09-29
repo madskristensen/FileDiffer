@@ -50,12 +50,11 @@ namespace FileDiffer
             {
                 var ext = Path.GetExtension(_dte.ActiveDocument.FullName);
 
-                var left = CreateTempFileFromClipboard(ext, _dte.ActiveDocument.GetText());
-                var right = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.Text));
+                var left = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.Text));
+                var right = _dte.ActiveDocument.FullName;
 
                 SelectedFilesCommand.Diff(left, right);
                 File.Delete(left);
-                File.Delete(right);
             }
         }
 

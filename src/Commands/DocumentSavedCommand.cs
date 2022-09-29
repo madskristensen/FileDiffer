@@ -42,8 +42,8 @@ namespace FileDiffer
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var ext = Path.GetExtension(_dte.ActiveDocument.FullName);
-            var right = CreateTempFileFromClipboard(ext, File.ReadAllText(_dte.ActiveDocument.FullName));
-            var left = CreateTempFileFromClipboard(ext, _dte.ActiveDocument.GetText());
+            var left = CreateTempFileFromClipboard(ext, File.ReadAllText(_dte.ActiveDocument.FullName));
+            var right = _dte.ActiveDocument.FullName;
 
             SelectedFilesCommand.Diff(left, right);
             File.Delete(left);

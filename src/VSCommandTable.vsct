@@ -45,17 +45,6 @@
           <LocCanonicalName>.CompareWith.SelectedFiles</LocCanonicalName>
         </Strings>
       </Button>
-      <Button guid="guidDiffFilesCmdSet" id="FileOnDisk" priority="0x0100" type="Button">
-        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <Strings>
-          <ButtonText>File with Other File on Disk</ButtonText>
-          <LocCanonicalName>.CompareWith.FileOnDisk</LocCanonicalName>
-        </Strings>
-      </Button>
       <Button guid="guidDiffFilesCmdSet" id="Clipboard" priority="0x0110" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
         <Icon guid="ImageCatalogGuid" id="Paste" />
@@ -65,6 +54,17 @@
         <Strings>
           <ButtonText>File with Clipboard</ButtonText>
           <LocCanonicalName>.CompareWith.Clipboard</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="FileOnDisk" priority="0x0120" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>File with...</ButtonText>
+          <LocCanonicalName>.CompareWith.FileOnDisk</LocCanonicalName>
         </Strings>
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="Unmodified" priority="0x0110" type="Button">
