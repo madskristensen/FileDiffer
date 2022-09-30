@@ -17,6 +17,7 @@ Here’s are the commands available from the right-click menu in Solution Explorer
 * Compare two files in Solution Explorer
 * Compare file with another file on disks
 * Compare file with content of clipboard
+* Compare file with its unmodified version
 
 ### Compare selected files
 Select two files in Solution Explorer and right-click to bring up the context menu.
