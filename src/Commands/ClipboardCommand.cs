@@ -33,9 +33,9 @@ namespace FileDiffer
             var command = (OleMenuCommand)sender;
             IEnumerable<string> items = SelectedFilesCommand.GetSelectedFiles();
 
-            command.Enabled = items.Count() == 1;
+            command.Enabled = command.Visible = items.Count() == 1;
         }
-
+        
         private static void CommandCallback(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

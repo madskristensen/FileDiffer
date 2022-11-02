@@ -36,8 +36,6 @@
     <Buttons>
       <Button guid="guidDiffFilesCmdSet" id="DiffFilesCommandId" priority="0x0100" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="Select" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
@@ -45,26 +43,23 @@
           <LocCanonicalName>.CompareWith.SelectedFiles</LocCanonicalName>
         </Strings>
       </Button>
-      <Button guid="guidDiffFilesCmdSet" id="Clipboard" priority="0x0110" type="Button">
+      <Button guid="guidDiffFilesCmdSet" id="FileOnDisk" priority="0x0100" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="Paste" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>DefaultDisabled</CommandFlag>
-        <Strings>
-          <ButtonText>File with Clipboard</ButtonText>
-          <LocCanonicalName>.CompareWith.Clipboard</LocCanonicalName>
-        </Strings>
-      </Button>
-      <Button guid="guidDiffFilesCmdSet" id="FileOnDisk" priority="0x0120" type="Button">
-        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
           <ButtonText>File with...</ButtonText>
           <LocCanonicalName>.CompareWith.FileOnDisk</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidDiffFilesCmdSet" id="Clipboard" priority="0x0110" type="Button">
+        <Parent guid="guidDiffFilesCmdSet" id="FilesMenuGroup" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>File with Clipboard</ButtonText>
+          <LocCanonicalName>.CompareWith.Clipboard</LocCanonicalName>
         </Strings>
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="Unmodified" priority="0x0110" type="Button">
@@ -89,8 +84,6 @@
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="EditorSelectionClipboard" priority="0x0120" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="RectangleSelection" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <Strings>
           <ButtonText>Selection with Clipboard</ButtonText>
@@ -99,8 +92,6 @@
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="EditorBufferClipboard" priority="0x0130" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="Document" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>Active File with Clipboard</ButtonText>
@@ -109,8 +100,6 @@
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="EditorBufferSaved" priority="0x0140" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="SaveAs" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
           <ButtonText>Active File with Saved</ButtonText>
           <LocCanonicalName>.CompareWith.ActiveFileWithSaved</LocCanonicalName>
@@ -118,8 +107,6 @@
       </Button>
       <Button guid="guidDiffFilesCmdSet" id="EditorBufferFile" priority="0x0150" type="Button">
         <Parent guid="guidDiffFilesCmdSet" id="EditorFlyoutMenuGroup" />
-        <Icon guid="ImageCatalogGuid" id="FileSystemDriverFile" />
-        <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
           <ButtonText>Active File with...</ButtonText>
           <LocCanonicalName>.CompareWith.ActiveFileWith</LocCanonicalName>
