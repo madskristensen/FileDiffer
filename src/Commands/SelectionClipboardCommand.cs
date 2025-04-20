@@ -53,7 +53,7 @@ namespace FileDiffer
                 var selection = (TextSelection)_dte.ActiveDocument.Selection;
 
                 var left = CreateTempFileFromClipboard(ext, selection.Text);
-                var right = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.Text));
+                var right = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.UnicodeText));
 
                 SelectedFilesCommand.Diff(left, right);
                 File.Delete(left);
@@ -70,7 +70,7 @@ namespace FileDiffer
 
         private static bool CanFilesBeCompared()
         {
-            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.Text));
+            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.UnicodeText));
         }
     }
 }

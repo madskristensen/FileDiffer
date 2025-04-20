@@ -50,7 +50,7 @@ namespace FileDiffer
             {
                 var ext = Path.GetExtension(_dte.ActiveDocument.FullName);
 
-                var left = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.Text));
+                var left = CreateTempFileFromClipboard(ext, Clipboard.GetText(TextDataFormat.UnicodeText));
                 var right = _dte.ActiveDocument.FullName;
 
                 SelectedFilesCommand.Diff(left, right);
@@ -67,7 +67,7 @@ namespace FileDiffer
 
         private static bool CanFilesBeCompared()
         {
-            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.Text));
+            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.UnicodeText));
         }
     }
 }
