@@ -49,7 +49,7 @@ namespace FileDiffer
                     Encoding encoding = GetEncoding(right);
 
                     var left = Path.ChangeExtension(Path.GetTempFileName(), Path.GetExtension(right));
-                    File.WriteAllText(left, Clipboard.GetText(TextDataFormat.Text), encoding);
+                    File.WriteAllText(left, Clipboard.GetText(TextDataFormat.UnicodeText), encoding);
 
                     SelectedFilesCommand.Diff(left, right);
                     File.Delete(left);
@@ -75,7 +75,7 @@ namespace FileDiffer
 
         private static bool CanFilesBeCompared()
         {
-            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.Text));
+            return !string.IsNullOrWhiteSpace(Clipboard.GetText(TextDataFormat.UnicodeText));
         }
     }
 }
